@@ -19,3 +19,5 @@ export * from './CTEDistribuicaoDFe.js';
 export * from './CTEDacteGenerator.js';
 export * from './CTEConsultaProtocolo.js';
 export * from './CTEAutorizacao.js';
+
+export * from './CTERecepcaoEvento.js';

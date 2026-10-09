@@ -26,6 +26,7 @@ export { CTEDistribuicaoDFePorUltNSU } from './operations/CTEDistribuicaoDFe/CTE
 export { CTEStatusServico } from './operations/CTEStatusServico/CTEStatusServico.js';
 export { CTEConsultaProtocolo } from './operations/CTEConsultaProtocolo/CTEConsultaProtocolo.js';
 export { CTEAutorizacao } from './operations/CTEAutorizacao/CTEAutorizacao.js';
+export { CTERecepcaoEvento } from './operations/CTERecepcaoEvento/CTERecepcaoEvento.js';
 
 // CTe Services
 export { CTEDistribuicaoDFeService } from './services/CTEDistribuicaoDFe/CTEDistribuicaoDFeService.js';
@@ -34,6 +35,7 @@ export { CTEDistribuicaoDFePorUltNSUService } from './services/CTEDistribuicaoDF
 export { CTEStatusServicoService } from './services/CTEStatusServico/CTEStatusServicoService.js';
 export { CTEConsultaProtocoloService } from './services/CTEConsultaProtocolo/CTEConsultaProtocoloService.js';
 export { CTEAutorizacaoService } from './services/CTEAutorizacao/CTEAutorizacaoService.js';
+export { CTERecepcaoEventoService } from './services/CTERecepcaoEvento/CTERecepcaoEventoService.js';
 export { CTEBaseService, CTE_VERSAO } from './services/util/CTEBaseService.js';
 
 // CTe Utilities
