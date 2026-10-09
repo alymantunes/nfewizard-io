@@ -45,19 +45,38 @@ describe('MDFeWizard — simulação interna', () => {
     expect(resultado).toMatchObject({ success: true, cStat: '100', xMotivo: 'Autorizado em simulação', nProt: '123' });
   });
 
-  it('transmite evento e preserva cStat 135 simulado', async () => {
+  it('simula status, consulta e lista de MDF-e não encerrados', async () => {
     const wizard = new MDFeWizard();
     await wizard.MDFe_LoadEnvironment({ config: {} as any });
-    const resultado = await wizard.MDFe_RecepcaoEvento({
-      tpEvento: '110114',
-      cOrgao: '35',
-      tpAmb: 2,
+    const status = await wizard.MDFe_ConsultaStatusServico(2);
+    const consulta = await wizard.MDFe_Consulta('352610AB12CD34000195580010000000011000000001', 2);
+    const naoEncerrados = await wizard.MDFe_ConsNaoEncerrados('AB12CD34000195', 2);
+    expect(status).toMatchObject({ cStat: '100', xMotivo: 'Autorizado em simulação' });
+    expect(consulta).toMatchObject({ cStat: '100' });
+    expect(naoEncerrados).toMatchObject({ cStat: '100' });
+    expect((wizard as any).axios.post).toHaveBeenCalledTimes(3);
+  });
+
+  it('simula cancelamento, encerramento e inclusão de condutor com cStat 135', async () => {
+    const wizard = new MDFeWizard();
+    await wizard.MDFe_LoadEnvironment({ config: {} as any });
+    const base = {
+      cOrgao: '35' as const,
+      tpAmb: 2 as const,
       cnpj: 'AB12CD34000195',
       chave: '352610AB12CD34000195580010000000011000000001',
       dhEvento: '2026-10-09T12:00:00-03:00',
-      xNome: 'Motorista de Teste',
-      cpf: '12345678909'
-    });
-    expect(resultado).toMatchObject({ cStat: '135', xMotivo: 'Evento registrado em simulação' });
+      nProt: '123'
+    };
+    const eventos: any[] = [
+      { ...base, tpEvento: '110111', xJust: 'Cancelamento fictício' },
+      { ...base, tpEvento: '110112', dtEnc: '2026-10-09', cUF: '35', cMun: '3550308' },
+      { ...base, tpEvento: '110114', xNome: 'Motorista de Teste', cpf: '12345678909' }
+    ];
+    for (const evento of eventos) {
+      const resultado = await wizard.MDFe_RecepcaoEvento(evento);
+      expect(resultado).toMatchObject({ cStat: '135', xMotivo: 'Evento registrado em simulação' });
+    }
+    expect((wizard as any).axios.post).toHaveBeenCalledTimes(3);
   });
 });

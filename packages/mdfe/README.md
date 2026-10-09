@@ -22,4 +22,4 @@ Embarca os schemas oficiais do MDF-e 3.00b, pacote PL_MDFe_300b_NT012025_1.04, p
 
 ## Testes
 
-`pnpm --filter @nfewizard/mdfe test` executa testes do DV, QR Code, XSD, eventos, SOAP, GZip/Base64 e simulação interna com certificado/assinatura falsos e respostas controladas. A simulação não prova conexão nem autorização da SEFAZ.
+`pnpm --filter @nfewizard/mdfe test` executa testes do DV, QR Code, XSD, eventos, SOAP, GZip/Base64 e simulação interna com certificado/assinatura falsos e respostas controladas. A simulação não prova conexão nem autorização da SEFAZ. O DAMDFE pode ser gerado com MDFE_GerarDamdfe usando mdfeProc autorizado e é exportado por @nfewizard/danfe; exige cStat 100 e imprime a marca obrigatória de homologação.
