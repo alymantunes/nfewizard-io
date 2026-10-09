@@ -20,6 +20,9 @@ import { Environment, Utility, XmlBuilder, XmlParser, ValidaCPFCNPJ, BaseNFE, lo
 import { GerarConsultaImpl, SaveFilesImpl, CTEAutorizacaoServiceImpl } from '@nfewizard/types/shared';
 import { CTe, CTeAutorizacaoResultado, CTeAutorizacaoResultadoItem, LayoutCTe } from '@nfewizard/types/cte';
 import { CTE_VERSAO } from '../util/CTEBaseService.js';
+import { calcularDigitoVerificadorCte } from '../util/calcular-dv-cte.js';
+import { montarUrlQrCodeCte, adicionarQrCodeCte } from '../util/CTeQrCode.js';
+import { validarXmlCte } from '../util/CTeSchema.js';
 
 const METHOD_NAME = 'CTeAutorizacao';
 
@@ -59,15 +62,7 @@ export class CTEAutorizacaoService extends BaseNFE implements CTEAutorizacaoServ
     }
 
     private calcularModulo11(sequencia: string): number {
-        const pesos = [4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
-
-        let somatoria = 0;
-        for (let i = 0; i < sequencia.length; i++) {
-            somatoria += parseInt(sequencia.charAt(i)) * pesos[i];
-        }
-
-        const restoDivisao = somatoria % 11;
-        return restoDivisao === 0 || restoDivisao === 1 ? 0 : 11 - restoDivisao;
+        return calcularDigitoVerificadorCte(sequencia);
     }
 
     private calcularDigitoVerificador(cte: LayoutCTe): { chaveAcesso: string; dv: number } {
@@ -227,6 +222,10 @@ export class CTEAutorizacaoService extends BaseNFE implements CTEAutorizacaoServ
 
         try {
             xmlAssinado = this.gerarXml(cte);
+            const ufEmitente = this.environment.getConfig().dfe.UF;
+            const urlQrCode = montarUrlQrCodeCte(this.chaveNfe, cte.infCte.ide.tpAmb, cte.infCte.ide.tpEmis ?? 1, ufEmitente);
+            xmlAssinado = adicionarQrCodeCte(xmlAssinado, urlQrCode);
+            await validarXmlCte(xmlAssinado);
             xmlCompactado = this.compactarXml(xmlAssinado);
 
             const { xmlFormated, agent, webServiceUrl, action } = await this.gerarConsulta.gerarConsulta(

@@ -6,9 +6,16 @@
     "declaration": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*",
+    "src/config/**/*.json"
+  ],
   "references": [
-    { "path": "../types" },
-    { "path": "../shared" }
+    {
+      "path": "../types"
+    },
+    {
+      "path": "../shared"
+    }
   ]
 }

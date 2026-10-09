@@ -1,0 +1,14 @@
+{
+  "CTe_SVRS_P": "https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
+  "CTe_SVRS_H": "https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
+  "CTe_SVSP_P": "https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode",
+  "CTe_SVSP_H": "https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode",
+  "CTe_MG_P": "https://cte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml",
+  "CTe_MG_H": "https://hcte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml",
+  "CTe_MS_P": "http://www.dfe.ms.gov.br/cte/qrcode",
+  "CTe_MS_H": "http://www.dfe.ms.gov.br/cte/qrcode",
+  "CTe_MT_P": "https://www.sefaz.mt.gov.br/cte/qrcode",
+  "CTe_MT_H": "https://homologacao.sefaz.mt.gov.br/cte/qrcode",
+  "CTe_PR_P": "http://www.fazenda.pr.gov.br/cte/qrcode",
+  "CTe_PR_H": "http://www.fazenda.pr.gov.br/cte/qrcode"
+}
