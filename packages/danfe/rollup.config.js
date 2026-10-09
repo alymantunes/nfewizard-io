@@ -41,7 +41,9 @@ export default [
         declaration: true,
         declarationMap: false,
         compilerOptions: {
-          rootDir: '.'
+          rootDir: '.',
+          module: 'ESNext',
+          moduleResolution: 'Bundler'
         }
       })
     ]
@@ -82,7 +84,9 @@ export default [
         declaration: true,
         declarationMap: false,
         compilerOptions: {
-          rootDir: '.'
+          rootDir: '.',
+          module: 'ESNext',
+          moduleResolution: 'Bundler'
         }
       })
     ]
