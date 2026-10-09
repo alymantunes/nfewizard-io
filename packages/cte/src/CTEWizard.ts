@@ -29,6 +29,9 @@ import { CTEConsultaProtocoloService } from './services/CTEConsultaProtocolo/CTE
 import { CTEConsultaProtocolo } from './operations/CTEConsultaProtocolo/CTEConsultaProtocolo.js';
 import { CTEAutorizacaoService } from './services/CTEAutorizacao/CTEAutorizacaoService.js';
 import { CTEAutorizacao } from './operations/CTEAutorizacao/CTEAutorizacao.js';
+import { CTERecepcaoEvento } from './operations/CTERecepcaoEvento/CTERecepcaoEvento.js';
+import { CTERecepcaoEventoService } from './services/CTERecepcaoEvento/CTERecepcaoEventoService.js';
+import { CTeCancelamento, CTeCartaCorrecao } from '@nfewizard/types/cte';
 import { CTe as CTeAutorizacaoData } from '@nfewizard/types/cte';
 
 /**
@@ -277,6 +280,16 @@ export class CTEWizard {
             logger.error(``, error, { context: 'CTE_Autorizacao' });
             throw error;
         }
+    }
+
+    async CTE_Cancelamento(evento: CTeCancelamento): Promise<any> {
+        const service = new CTERecepcaoEventoService(this.environment, this.utility, this.xmlBuilder, this.axios, this.saveFiles, this.gerarConsulta);
+        return new CTERecepcaoEvento(service).cancelar(evento);
+    }
+
+    async CTE_CartaCorrecao(evento: CTeCartaCorrecao): Promise<any> {
+        const service = new CTERecepcaoEventoService(this.environment, this.utility, this.xmlBuilder, this.axios, this.saveFiles, this.gerarConsulta);
+        return new CTERecepcaoEvento(service).cartaCorrecao(evento);
     }
 
     /**
