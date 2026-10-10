@@ -43,4 +43,4 @@ jobs:
           NODE_AUTH_TOKEN: ${{ github.token }}
         run: |
           npm pkg set name="@absolucoes/nfewizard-mdfe" version="${{ steps.versao.outputs.valor }}"
-          pnpm publish --registry=https://npm.pkg.github.com --no-git-checks --access=restricted
+          pnpm publish --registry=https://npm.pkg.github.com --no-git-checks --access=restricted --tag=vanir
